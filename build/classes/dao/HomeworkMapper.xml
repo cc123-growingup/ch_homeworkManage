@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.HomeworkMapper">
+	<!-- 查询所有名片 -->
+	<select id="selectAllHomework"  resultType="map">
+		select * from homeworktable where user_id = #{uid}
+	</select>
+	<!-- 分页查询名片 -->
+	<select id="selectAllHomeworkByPage"  resultType="map">
+		select * from homeworktable where user_id = #{uid}  limit #{startIndex}, #{perPageSize} 
+	</select>
+	<!-- 添加作业 -->
+	<insert id="addHomework" parameterType="Homework">
+		insert into homeworktable (id, name, telephone, email, major, post, address, homework, user_id)
+		 values (null, #{name}, #{telephone}, #{email}, #{major}, #{post}, #{address}, #{homework}, #{user_id})
+	</insert>
+	<!-- 修改名片 -->
+	<update id="updateHomework" parameterType="Homework">
+		update homeworktable set
+			name = #{name},
+			telephone =  #{telephone},
+			email = #{email},
+			major = #{major},
+			post = #{post},
+			address = #{address},
+			homework = #{homework}
+		where id = #{id}
+	</update>
+	<!-- 查询一个名片，修改及详情使用 -->
+	<select id="selectAHomework" parameterType="integer" resultType="HomeworkTable">
+		select * from homeworktable where id = #{id}
+	</select>
+	<!-- 删除一个名片 -->
+	<delete id="deleteAHomework" parameterType="integer">
+		delete from homeworktable where id = #{id}
+	</delete>
+	<!-- 修改密码 -->
+	<update id="updatePwd" parameterType="myuser">
+		update usertable_homework set upwd = #{upwd} where id = #{id}
+	</update>
+</mapper>
